@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nhảy Nhảy</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="game-container">
+      <div id="bird"></div>
+      <div class="pipe" id="pipe1"></div>
+      <div class="pipe" id="pipe2"></div>
+      <div id="score">Score: 0</div>
+      <div id="height">Height: 0</div>
+      <button id="start-btn">Start</button>
+    </div>
+
+    <div id="settings-container">
+      <label for="speed-input">Bird Speed:</label>
+      <input type="number" id="speed-input" min="1" max="10" value="2" />
+      <label for="pipe-speed-input">Pipe Speed:</label>
+      <input type="number" id="pipe-speed-input" min="1" max="10" value="2" />
+      <button id="apply-btn">Apply</button>
+    </div>
+    <script src="logic.js"></script>
+  </body>
+</html>
