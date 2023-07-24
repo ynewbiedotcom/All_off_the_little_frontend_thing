@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tank Game</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <canvas id="canvas" width="500" height="500"></canvas>
+
+    <script>
+      // Create the canvas context
+      var ctx = canvas.getContext("2d");
+
+      // Create the tank
+      var tank = {
+        x: 200,
+        y: 200,
+        width: 100,
+        height: 100,
+        direction: "up",
+        speed: 5,
+      };
+
+      // Create the bullets
+      var bullets = [];
+
+      // Update the game loop
+      function update() {
+        // Move the tank
+        switch (tank.direction) {
+          case "up":
+            tank.y -= tank.speed;
+            break;
+          case "down":
+            tank.y += tank.speed;
+            break;
+          case "left":
+            tank.x -= tank.speed;
+            break;
+          case "right":
+            tank.x += tank.speed;
+            break;
+        }
+
+        // Draw the tank
+        ctx.fillStyle = "red";
+        ctx.fillRect(tank.x, tank.y, tank.width, tank.height);
+
+        // Draw the bullets
+        for (var i = 0; i < bullets.length; i++) {
+          // Move the bullet
+          bullets[i].x += bullets[i].speed;
+
+          // Check if the bullet hit a wall
+          if (
+            bullets[i].x < 0 ||
+            bullets[i].x > canvas.width ||
+            bullets[i].y < 0 ||
+            bullets[i].y > canvas.height
+          ) {
+            bullets.splice(i, 1);
+          }
+
+          // Draw the bullet
+          ctx.fillStyle = "blue";
+          ctx.fillRect(bullets[i].x, bullets[i].y, 10, 10);
+        }
+
+        // Check if the tank hit a bullet
+        for (var i = 0; i < bullets.length; i++) {
+          if (
+            bullets[i].x > tank.x - tank.width / 2 &&
+            bullets[i].x < tank.x + tank.width / 2 &&
+            bullets[i].y > tank.y - tank.height / 2 &&
+            bullets[i].y < tank.y + tank.height / 2
+          ) {
+            // Game over!
+            alert("Game over!");
+            exit();
+          }
+        }
+
+        // Request a new frame
+        requestAnimationFrame(update);
+      }
+
+      // Start the game
+      update();
+    </script>
+  </body>
+</html>
